@@ -14,3 +14,12 @@ Full OpenSource privnote clone.
 ```bash
 go run main.go
 ```
+
+```bash
+cp .env.example .env
+```
+After copying, the variables still need to be adjusted.
+
+## Motivation
+
+I wanted to build a free Privnote clone to firstly build up my Go knowledge and to build a service that can be trusted as all content is openly available on the net.
