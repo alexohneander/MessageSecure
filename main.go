@@ -2,6 +2,7 @@ package main
 
 import (
 	"MessageSecure/config"
+	"os"
 )
 
 func main() {
@@ -13,5 +14,5 @@ func main() {
 	config.ConfigureRoutes(app)
 
 	// Start server
-	app.Listen(":3000")
+	app.Listen(":" + os.Getenv("PORT"))
 }
