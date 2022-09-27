@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -13,7 +14,7 @@ import (
 )
 
 func CreateClient() *mongo.Client {
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://root:zd7taC2w66@mongodb-prod.default:27017"))
+	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGODB_URI")))
 
 	if err != nil {
 		log.Fatal(err)
