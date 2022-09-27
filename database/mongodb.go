@@ -24,7 +24,7 @@ func CreateClient() *mongo.Client {
 }
 
 func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {
-	collection := client.Database("MessageSecure").Collection(collectionName)
+	collection := client.Database("goMessageSecure").Collection(collectionName)
 
 	return collection
 }
