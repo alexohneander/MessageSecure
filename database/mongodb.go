@@ -43,11 +43,13 @@ func AddDataToCollection(client *mongo.Client, msg models.Message) error {
 	}
 
 	res, insertErr := collection.InsertMany(ctx, docs)
-
-	defer client.Disconnect(ctx)
-
 	if insertErr != nil {
 		log.Fatal(insertErr)
+	}
+
+	disconnectErr := client.Disconnect(ctx)
+	if disconnectErr != nil {
+		log.Fatal(disconnectErr)
 	}
 
 	fmt.Println("Inserted documents: ", res.InsertedIDs)
@@ -68,12 +70,18 @@ func GetDataFromCollection(client *mongo.Client, id string) models.Message {
 
 	// Get Message
 	message := models.Message{}
-	msg.Decode(&message)
+	decodeErr := msg.Decode(&message)
+	if decodeErr != nil {
+		log.Fatal(decodeErr)
+	}
 
 	// Delete Entry
 	collection.FindOneAndDelete(ctx, bson.D{{"id", id}})
 
-	defer client.Disconnect(ctx)
+	disconnectErr := client.Disconnect(ctx)
+	if disconnectErr != nil {
+		log.Fatal(disconnectErr)
+	}
 
 	return message
 }

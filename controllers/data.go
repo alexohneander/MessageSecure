@@ -3,6 +3,7 @@ package controllers
 import (
 	mongodb "MessageSecure/database"
 	"MessageSecure/models"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -19,7 +20,10 @@ func EncryptData(c *fiber.Ctx) error {
 	}
 
 	client := mongodb.CreateClient()
-	mongodb.AddDataToCollection(client, message)
+	dataAddErr := mongodb.AddDataToCollection(client, message)
+	if dataAddErr != nil {
+		log.Fatal(dataAddErr)
+	}
 
 	return c.Render("encrypted", fiber.Map{
 		"Title":     "Message encrypted",
