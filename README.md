@@ -1,7 +1,7 @@
 # MessageSecure
 Full OpenSource privnote clone. Messages are encrypted with PGP on the client side and are never stored or transmitted unencrypted.
 
-![Release](https://img.shields.io/github/release/alexohneander/MessageSecure.svg)
+![version](https://img.shields.io/badge/beta-0.1.2-blue)
 ![Security](https://github.com/alexohneander/MessageSecure/workflows/CodeQL/badge.svg)
 ![Linter](https://github.com/alexohneander/MessageSecure/workflows/Linter/badge.svg)
 
