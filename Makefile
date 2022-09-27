@@ -16,6 +16,9 @@ build:
 
 build_and_run: build run
 
+lint:
+	golangci-lint run
+
 clean:
 	go clean
 	rm -rf bin/darwin
