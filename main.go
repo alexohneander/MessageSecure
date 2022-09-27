@@ -2,6 +2,7 @@ package main
 
 import (
 	"MessageSecure/config"
+	"log"
 	"os"
 )
 
@@ -14,5 +15,8 @@ func main() {
 	config.ConfigureRoutes(app)
 
 	// Start server
-	app.Listen(":" + os.Getenv("PORT"))
+	startErr := app.Listen(":" + os.Getenv("PORT"))
+	if startErr != nil {
+		log.Fatal(startErr)
+	}
 }
