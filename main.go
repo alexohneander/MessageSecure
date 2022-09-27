@@ -4,9 +4,17 @@ import (
 	"MessageSecure/config"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	// get Env File
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	// Configure Settings
 	app := config.ConfigureSettings()

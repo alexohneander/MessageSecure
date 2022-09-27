@@ -4,6 +4,7 @@ import (
 	mongodb "MessageSecure/database"
 	"MessageSecure/models"
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -31,6 +32,7 @@ func EncryptData(c *fiber.Ctx) error {
 		"Message":   formMessage,
 		"Id":        id,
 		"Token":     formToken,
+		"Domain":    os.Getenv("DOMAIN"),
 	})
 }
 
@@ -49,5 +51,6 @@ func DecryptData(c *fiber.Ctx) error {
 		"Token":     token,
 		"Id":        id,
 		"Message":   message.Message,
+		"Domain":    os.Getenv("DOMAIN"),
 	})
 }
