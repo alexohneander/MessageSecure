@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/gofiber/fiber/v2 v2.38.1
 	github.com/gofiber/template v1.6.30
+	github.com/joho/godotenv v1.4.0
 	go.mongodb.org/mongo-driver v1.10.1
 )
 
