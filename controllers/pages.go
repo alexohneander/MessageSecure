@@ -11,9 +11,9 @@ func RenderIndex(c *fiber.Ctx) error {
 	}
 
 	return c.Render("index", fiber.Map{
-		"Title":     "Neue Nachricht",
-		"MetaTitle": "Neue Nachricht",
-		"Content":   "Sende Verschlüsselte Nachrichten, die sich selbst zerstören, nachdem sie gelesen wurden.",
+		"Title":     "New message",
+		"MetaTitle": "New message",
+		"Content":   "Send encrypted messages that self-destruct after being read.",
 		"Token":     token,
 	})
 }

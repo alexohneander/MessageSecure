@@ -22,7 +22,7 @@ func EncryptData(c *fiber.Ctx) error {
 	mongodb.AddDataToCollection(client, message)
 
 	return c.Render("encrypted", fiber.Map{
-		"Title":     "Nachricht verschlüsselt",
+		"Title":     "Message encrypted",
 		"MetaTitle": "Encrypted",
 		"Message":   formMessage,
 		"Id":        id,
@@ -39,9 +39,9 @@ func DecryptData(c *fiber.Ctx) error {
 	message := mongodb.GetDataFromCollection(client, id)
 
 	return c.Render("decrypted", fiber.Map{
-		"Title":     "Lesen und zerstören?",
-		"MetaTitle": "Lesen und zerstören?",
-		"Content":   "Du liest und zerstörst gerade die Nachricht mit der id " + id,
+		"Title":     "Read and destroy?",
+		"MetaTitle": "Read and destroy?",
+		"Content":   "You are reading and destroying the message with the id " + id,
 		"Token":     token,
 		"Id":        id,
 		"Message":   message.Message,

@@ -2,7 +2,7 @@
 <form id="secure-form" method="POST" action="/message/encrypt">
     <input type="hidden" id="form-token" name="_token" value="{{ .Token }}">
     <input type="hidden" id="form-id" name="_id" value="{{ .Id }}">
-    <textarea type="textarea" id="form-message" name="message" placeholder="Schreibe deine Notiz hier ..." rows="10" cols="80" >{{.Message}}</textarea>
+    <textarea type="textarea" id="form-message" name="message" placeholder="Write your note here ..." rows="10" cols="80" >{{.Message}}</textarea>
     <br />
     <button id="encrypt-message" type="submit">Encrypt</button>
     <button id="decrypt-message" type="button" onclick="decryptMessage()">Decrypt</button>
