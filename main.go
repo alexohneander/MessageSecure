@@ -13,5 +13,5 @@ func main() {
 	config.ConfigureRoutes(app)
 
 	// Start server
-	app.Listen(":4000")
+	app.Listen(":3000")
 }
