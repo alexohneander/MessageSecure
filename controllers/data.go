@@ -3,6 +3,8 @@ package controllers
 import (
 	mongodb "MessageSecure/database"
 	"MessageSecure/models"
+	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -19,7 +21,10 @@ func EncryptData(c *fiber.Ctx) error {
 	}
 
 	client := mongodb.CreateClient()
-	mongodb.AddDataToCollection(client, message)
+	dataAddErr := mongodb.AddDataToCollection(client, message)
+	if dataAddErr != nil {
+		log.Fatal(dataAddErr)
+	}
 
 	return c.Render("encrypted", fiber.Map{
 		"Title":     "Message encrypted",
@@ -27,6 +32,7 @@ func EncryptData(c *fiber.Ctx) error {
 		"Message":   formMessage,
 		"Id":        id,
 		"Token":     formToken,
+		"Domain":    os.Getenv("DOMAIN"),
 	})
 }
 
@@ -45,5 +51,6 @@ func DecryptData(c *fiber.Ctx) error {
 		"Token":     token,
 		"Id":        id,
 		"Message":   message.Message,
+		"Domain":    os.Getenv("DOMAIN"),
 	})
 }

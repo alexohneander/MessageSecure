@@ -1,6 +1,10 @@
 package controllers
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"os"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func RenderIndex(c *fiber.Ctx) error {
 
@@ -15,5 +19,6 @@ func RenderIndex(c *fiber.Ctx) error {
 		"MetaTitle": "New message",
 		"Content":   "Send encrypted messages that self-destruct after being read.",
 		"Token":     token,
+		"Domain":    os.Getenv("DOMAIN"),
 	})
 }
