@@ -1,0 +1,74 @@
+
+<form id="secure-form" method="POST" action="/message/encrypt">
+    <input type="hidden" id="form-token" name="_token" value="{{ .Token }}">
+    <input type="hidden" id="form-id" name="_id" value="{{ .Id }}">
+    <textarea type="textarea" id="form-message" name="message" placeholder="Schreibe deine Notiz hier ..." rows="10" cols="80" >{{.Message}}</textarea>
+    <br />
+    <button id="encrypt-message" type="submit">Encrypt</button>
+    <button id="decrypt-message" type="button" onclick="decryptMessage()">Decrypt</button>
+</form>
+
+<script src="/js/openpgp.min.js"></script>
+<script>
+
+document.addEventListener('DOMContentLoaded', (e) => {
+    var id = document.getElementById('form-id').value;
+    var token = document.getElementById('form-token').value;
+
+    if (id != '' && token != '') {
+        document.getElementById('encrypt-message').disabled = true;
+        document.getElementById('form-message').style.display = 'none';
+    } else {
+        document.getElementById('decrypt-message').disabled = true;
+    }
+});
+
+
+document.getElementById("secure-form").onsubmit = function(event) {
+    event.preventDefault();
+    
+    var formMessage = document.getElementById("form-message").value;
+
+    (async () => {
+        const message = await openpgp.createMessage({ text: formMessage });
+        
+        const encrypted = await openpgp.encrypt({
+            message, // input as Message object
+            passwords: [{{.Token}}], // multiple passwords possible
+            format: 'armored'
+        });
+        console.log(encrypted);
+
+        document.getElementById("form-message").value = encrypted;
+
+        var form = document.getElementById("secure-form");
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden"); 
+		hiddenField.setAttribute("name", "token");
+        hiddenField.setAttribute("value", {{.Token}});
+
+        form.appendChild(hiddenField); 
+
+        form.submit();
+    })();
+}
+
+function decryptMessage(){
+    (async () => {
+       var encryptedText = document.getElementById("form-message").value;
+
+        const encryptedMessage = await openpgp.readMessage({
+            armoredMessage: encryptedText // parse encrypted bytes
+        });
+        const { data: decrypted } = await openpgp.decrypt({
+            message: encryptedMessage,
+            passwords: [{{.Token}}], // decrypt with password
+            format: 'text' // output as Text
+        });
+        console.log(decrypted); 
+        document.getElementById("form-message").value = decrypted;
+        document.getElementById('form-message').style.display = 'block';
+    })();
+} 
+</script>
+

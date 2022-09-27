@@ -1,0 +1,11 @@
+{{template "partials/header" .}}
+
+<div class="content">
+    <h1>{{.Title}}</h1>
+    <p>{{.Content}}</p>
+
+    {{template "partials/form" .}}
+    <p><b>Token:</b> {{.Token}}</p>
+</div>
+
+{{template "partials/footer" .}}

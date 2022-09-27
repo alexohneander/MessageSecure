@@ -1,0 +1,60 @@
+:root {
+    --main-color: coral;
+    --disabled-color: #979797;
+    --white: #ffffff;
+}
+
+header {
+    position: relative;
+    background-color: coral;
+    height: 74px;
+}
+
+header h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: white;
+    font-weight: bold;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body .content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+button {
+    background-color: var(--main-color);
+    border-radius: 5px;
+    border: 1px solid var(--main-color);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.5em 0.5em;
+    margin: 0;
+    line-height: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 160px;
+    cursor: pointer;
+}
+
+button:disabled,
+button[disabled] {
+    background-color: var(--disabled-color);
+    border: 1px solid var(--disabled-color);
+    cursor: not-allowed;
+}
+
+footer {
+    text-align: center;
+}
