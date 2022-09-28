@@ -42,7 +42,7 @@ func DecryptData(c *fiber.Ctx) error {
 	token := c.Params("token")
 
 	client := mongodb.CreateClient()
-	message := mongodb.GetDataFromCollection(client, id)
+	message := mongodb.GetDataFromCollectionAndDelete(client, id)
 
 	return c.Render("decrypted", fiber.Map{
 		"Title":     "Read and destroy?",

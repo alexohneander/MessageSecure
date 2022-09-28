@@ -57,7 +57,21 @@ func AddDataToCollection(client *mongo.Client, msg models.Message) error {
 	return nil
 }
 
-func GetDataFromCollection(client *mongo.Client, id string) models.Message {
+func FindDataFromCollection(client *mongo.Client, id string) bool {
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	connectionErr := client.Connect(ctx)
+
+	if connectionErr != nil {
+		log.Fatal(connectionErr)
+	}
+
+	collection := GetCollection(client, "messages")
+	msg := collection.FindOne(ctx, bson.D{{"id", id}})
+
+	return msg != nil
+}
+
+func GetDataFromCollectionAndDelete(client *mongo.Client, id string) models.Message {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	connectionErr := client.Connect(ctx)
 
@@ -72,7 +86,7 @@ func GetDataFromCollection(client *mongo.Client, id string) models.Message {
 	message := models.Message{}
 	decodeErr := msg.Decode(&message)
 	if decodeErr != nil {
-		log.Fatal(decodeErr)
+		log.Print(decodeErr)
 	}
 
 	// Delete Entry
